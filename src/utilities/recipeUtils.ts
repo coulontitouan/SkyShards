@@ -1,6 +1,7 @@
 import type { ShardWithKey } from "../types/types";
 
 export interface FusionData {
+  crafts: Record<string, Record<string, ShardCraftIngredient>>;
   recipes: Record<string, Record<string, string[][]>>;
   shards: Record<
     string,
@@ -13,6 +14,11 @@ export interface FusionData {
       internal_id: string;
     }
   >;
+}
+
+export interface ShardCraftIngredient {
+    amount: number;
+    alternatives?: Record<string, ShardCraftIngredient>[]
 }
 
 export interface Recipe {
@@ -82,12 +88,12 @@ const createRecipeKey = (input1: string, input2: string, quantity: number): stri
 const analyzeShardPositions = (recipes: Recipe[]) => {
   const position1Count = new Map<string, number>();
   const position2Count = new Map<string, number>();
-  
+
   recipes.forEach(recipe => {
     position1Count.set(recipe.input1, (position1Count.get(recipe.input1) || 0) + 1);
     position2Count.set(recipe.input2, (position2Count.get(recipe.input2) || 0) + 1);
   });
-  
+
   return { position1Count, position2Count };
 };
 
@@ -120,20 +126,20 @@ const chooseBetterRecipe = (recipe1: Recipe, recipe2: Recipe, fusionData: Fusion
   const rarity1B = getRarityIndex(shard1B?.rarity);
   const rarity2A = getRarityIndex(shard2A?.rarity);
   const rarity2B = getRarityIndex(shard2B?.rarity);
-  
+
   if (rarity1A < rarity1B && rarity2A >= rarity2B) return recipe1;
   if (rarity2A < rarity2B && rarity1A >= rarity1B) return recipe2;
 
   const { position1Count, position2Count } = positionAnalysis;
-  
-  const recipe1Score = 
+
+  const recipe1Score =
     (getPreferredPosition(recipe1.input1, position1Count, position2Count) === "input1" ? 1 : 0) +
     (getPreferredPosition(recipe1.input2, position1Count, position2Count) === "input2" ? 1 : 0);
-    
-  const recipe2Score = 
+
+  const recipe2Score =
     (getPreferredPosition(recipe2.input1, position1Count, position2Count) === "input1" ? 1 : 0) +
     (getPreferredPosition(recipe2.input2, position1Count, position2Count) === "input2" ? 1 : 0);
-  
+
   if (recipe1Score !== recipe2Score) {
     return recipe1Score > recipe2Score ? recipe1 : recipe2;
   }

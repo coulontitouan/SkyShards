@@ -1,13 +1,15 @@
 import React, { useCallback } from "react";
+import {Tooltip} from "./Tooltip.tsx";
 
 interface ToggleSwitchProps {
   label: string;
   checked: boolean;
   onChange: (checked: boolean) => void;
   id?: string;
+  tooltipContent?: string;
 }
 
-export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ label, checked, onChange, id }) => {
+export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ label, checked, onChange, id, tooltipContent }) => {
   const handleToggle = useCallback(
     (e: React.MouseEvent) => {
       e.preventDefault();
@@ -19,8 +21,8 @@ export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ label, checked, onCh
 
   return (
     <div className="flex items-center justify-between gap-3 py-1">
-      <span onClick={handleToggle} className="text-sm font-medium text-slate-200 flex-1 cursor-pointer">
-        {label}
+      <span onClick={handleToggle} className="text-sm font-medium text-slate-200 flex items-center gap-1 flex-1 cursor-pointer">
+        {label} {tooltipContent && ( <Tooltip content={tooltipContent} className="-mb-[5px]"/> ) }
       </span>
       <button
         id={id}

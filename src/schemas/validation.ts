@@ -5,6 +5,8 @@ export const calculationSchema = z.object({
   quantity: z.number().min(1, "Quantity must be at least 1"),
   hunterFortune: z.number().min(0, "Hunter Fortune must be non-negative"),
   excludeChameleon: z.boolean(),
+  figCollection7: z.boolean(),
+  mangroveCollection7: z.boolean(),
   frogBonus: z.boolean(),
   newtLevel: z.number().min(0).max(10),
   salamanderLevel: z.number().min(0).max(10),

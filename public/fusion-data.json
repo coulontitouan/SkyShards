@@ -1,4 +1,70 @@
 {
+  "crafts": {
+    "U4": {
+      "ENCHANTED_EGG": {
+        "amount": 16,
+        "alternatives": [
+          {
+            "EGG": {
+              "amount": 144
+            }
+          }
+        ]
+      },
+      "ENCHANTED_FEATHER": {
+        "amount": 16,
+        "alternatives": [
+          {
+            "FEATHER": {
+              "amount": 2560
+            }
+          }
+        ]
+      },
+      "ENCHANTED_FIG_LOG": {
+        "amount": 64,
+        "alternatives": [
+          {
+            "FIG_LOG": {
+              "amount":10240
+            }
+          }
+        ]
+      }
+    },
+    "U28": {
+      "ENCHANTED_EGG": {
+        "amount": 16,
+        "alternatives": [
+          {
+            "EGG": {
+              "amount": 144
+            }
+          }
+        ]
+      },
+      "ENCHANTED_FEATHER": {
+        "amount": 16,
+        "alternatives": [
+          {
+            "FEATHER": {
+              "amount": 2560
+            }
+          }
+        ]
+      },
+      "ENCHANTED_MANGROVE_LOG": {
+        "amount": 64,
+        "alternatives": [
+          {
+            "MANGROVE_LOG": {
+              "amount":10240
+            }
+          }
+        ]
+      }
+    }
+  },
   "recipes": {
     "C1": {
       "2": [

@@ -8,6 +8,8 @@ const defaultForm: CalculationFormData = {
   quantity: 1,
   hunterFortune: 0,
   excludeChameleon: false,
+  figCollection7: true,
+  mangroveCollection7: true,
   frogBonus: false,
   newtLevel: 0,
   salamanderLevel: 0,

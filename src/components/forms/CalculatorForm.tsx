@@ -92,6 +92,8 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({ onSubmit }) => {
       quantity: currentQuantity,
       hunterFortune: 0,
       excludeChameleon: false,
+      figCollection7: true,
+      mangroveCollection7: true,
       frogBonus: false,
       newtLevel: 0,
       salamanderLevel: 0,
@@ -272,7 +274,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({ onSubmit }) => {
             <div className="flex items-center gap-2">
               <Layers className="w-4 h-4 text-blue-400" />
               <span className="text-sm font-medium text-white">Materials Only</span>
-              <Tooltip content="Calculate combined materials for multiple shards without showing the fusion tree."></Tooltip>
+              <Tooltip content="Calculate combined materials for multiple shards without showing the fusion tree."/>
             </div>
             <button
               type="button"
@@ -462,11 +464,11 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({ onSubmit }) => {
                 <div className="flex items-center gap-2 text-sm font-medium text-fuchsia-300 mb-2">
                   <div className="w-2 h-2 bg-fuchsia-500 rounded-full"></div>
                   <span>Hunter Fortune</span>
-                  <div className="-mb-[5px]">
                   <Tooltip
                     shardName="Hunter Fortune"
                     rarity="legendary"
                     title=""
+                    className="-mb-[5px]"
                     showRomanNumerals={false}
                     content={`
                       <div class="space-y-2">
@@ -502,7 +504,6 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({ onSubmit }) => {
                       </div>
                     `}
                   />
-                  </div>
                 </div>
               <input
                   type="number"
@@ -534,7 +535,28 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({ onSubmit }) => {
               )}
               {/* Instant Buy Prices Switch */}
               {!form.ironManView && (
-                <ToggleSwitch id="instantBuyPrices" label="Use Instant Buy Prices" checked={form.instantBuyPrices} onChange={(checked) => handleInputChange("instantBuyPrices", checked)} />
+                  <>
+                    <ToggleSwitch
+                        id="instantBuyPrices"
+                        label="Use Instant Buy Prices"
+                        checked={form.instantBuyPrices}
+                        onChange={(checked) => handleInputChange("instantBuyPrices", checked)}
+                    />
+                    <ToggleSwitch
+                        id="figCollection7"
+                        label="Fig Collection 7"
+                        tooltipContent="Sparrow Shard craft is unlocked with Fig Collection 7."
+                        checked={form.figCollection7}
+                        onChange={(checked) => handleInputChange("figCollection7", checked)}
+                    />
+                    <ToggleSwitch
+                        id="mangroveCollection7"
+                        label="Mangrove Collection 7"
+                        tooltipContent="Seagull Shard craft is unlocked with Mangrove Collection 7."
+                        checked={form.mangroveCollection7}
+                        onChange={(checked) => handleInputChange("mangroveCollection7", checked)}
+                    />
+                  </>
               )}
             </div>
           </div>
@@ -581,6 +603,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({ onSubmit }) => {
                   ? "Craft Penalty is the time (in seconds) added for each fusion. Higher values will make the algorithm favor doing less crafts."
                   : "Craft Penalty is the coin cost added for each fusion. Higher values will make the algorithm favor doing less crafts."
               }
+              className="-mb-[5px]"
             />
           </h3>
           <div className="flex items-center gap-2">
