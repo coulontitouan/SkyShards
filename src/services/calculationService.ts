@@ -1,15 +1,15 @@
 import type {
-  AlternativeRecipeOption,
-  AlternativeSelectionContext,
-  CalculationParams,
-  Data,
-  Recipe,
-  RecipeChoice,
-  RecipeOverride,
-  Recipes,
-  RecipeTree,
-  Shard,
-  Shards,
+    AlternativeRecipeOption,
+    AlternativeSelectionContext,
+    CalculationParams, Crafts,
+    Data,
+    Recipe,
+    RecipeChoice,
+    RecipeOverride,
+    Recipes,
+    RecipeTree,
+    Shard,
+    Shards,
 } from "../types/types";
 import { BLACK_HOLE_SHARD, NO_FORTUNE_SHARDS, WOODEN_BAIT_SHARDS } from "../constants";
 
@@ -60,6 +60,11 @@ export class CalculationService {
 
       const fusionJson = await fusionResponse.json();
       const defaultRates = await ratesResponse.json();
+
+      const crafts: Crafts = {}
+      for (const shard in fusionJson.crafts) {
+        crafts[shard] = fusionJson.crafts[shard];
+      }
 
       const recipes: Recipes = {};
       for (const outputShard in fusionJson.recipes) {
@@ -123,7 +128,7 @@ export class CalculationService {
         };
       }
 
-      const result = { recipes, shards };
+      const result = { crafts, recipes, shards };
 
       // Cache the result (limit cache size to prevent memory issues)
       if (this.dataCache.size > 50) {

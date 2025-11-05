@@ -30,9 +30,23 @@ export type RecipeOverride = {
   recipe: Recipe | null;
 };
 
+export type CraftingRecipe = {
+    [itemId: string]: CraftIngredient;
+};
+
+export type CraftIngredient = {
+    amount?: number;
+    alternatives: CraftingRecipe[];
+}
+
+export type Crafts = {
+    [shardId: string]: CraftingRecipe;
+};
+
 export interface Data {
   recipes: Recipes;
   shards: Shards;
+  crafts: Crafts;
 }
 
 export interface RecipeChoice {

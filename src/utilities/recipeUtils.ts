@@ -1,7 +1,6 @@
 import type { ShardWithKey } from "../types/types";
 
 export interface FusionData {
-  crafts: Record<string, Record<string, ShardCraftIngredient>>;
   recipes: Record<string, Record<string, string[][]>>;
   shards: Record<
     string,
@@ -14,11 +13,6 @@ export interface FusionData {
       internal_id: string;
     }
   >;
-}
-
-export interface ShardCraftIngredient {
-    amount: number;
-    alternatives?: Record<string, ShardCraftIngredient>[]
 }
 
 export interface Recipe {

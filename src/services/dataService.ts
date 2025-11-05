@@ -3,8 +3,14 @@ import type { ShardWithKey, Shard } from "../types/types";
 import { sortShardsByNameWithPrefixAwareness, filterShards, BASIC_FILTER_CONFIG, NAME_ONLY_FILTER_CONFIG } from "../utilities";
 
 interface FusionData {
+  crafts: Record<string, Record<string, ShardCraftIngredient>>;
   shards: Record<string, Shard>;
   recipes: Record<string, unknown>;
+}
+
+interface ShardCraftIngredient {
+    amount: number;
+    alternatives?: Record<string, ShardCraftIngredient>[]
 }
 
 export class DataService {
@@ -89,7 +95,7 @@ export class DataService {
 
   async loadShardCosts(useInstantBuyPrices: boolean): Promise<Record<string, number>> {
     const cacheKey = useInstantBuyPrices ? "instant_buy" : "buy_offer";
-  
+
     if (this.bazaarPriceCache?.[cacheKey]) {
       return this.bazaarPriceCache[cacheKey];
     }
@@ -103,7 +109,7 @@ export class DataService {
       const price = bazaarData.products[`${shard.internal_id}`]?.quick_status;
       this.bazaarPriceCache[cacheKey][shard.id] = useInstantBuyPrices ? price?.buyPrice : price?.sellPrice;
     }
-  
+
     return this.bazaarPriceCache[cacheKey];
   }
 
@@ -116,7 +122,7 @@ export class DataService {
       const bKey = b.key.toLowerCase();
       const aStarts = aName.startsWith(lowerQuery) || aKey.startsWith(lowerQuery);
       const bStarts = bName.startsWith(lowerQuery) || bKey.startsWith(lowerQuery);
-      
+
       if (aStarts && !bStarts) return -1;
       if (!aStarts && bStarts) return 1;
       return sortShardsByNameWithPrefixAwareness(a, b);
